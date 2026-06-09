@@ -1,0 +1,441 @@
+@import url('https://fonts.googleapis.com/css2?family=Sixtyfour&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+
+/* ─── reset & scrollbar ─────────────────────────────── */
+
+* {
+    box-sizing: border-box;
+    cursor: default;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #a100b0;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #f07eff;
+}
+
+/* ─── base ──────────────────────────────────────────── */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #0a0a0a;
+    color: #e6e6e6;
+    font-family: "Nunito", sans-serif;
+    line-height: 1.6;
+    user-select: none;
+    overflow-x: hidden;
+}
+
+body.no-scroll {
+    overflow: hidden;
+}
+
+/* ─── overlay ───────────────────────────────────────── */
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    z-index: 1001;
+    cursor: default;
+    transition: opacity 0.5s ease;
+    opacity: 1;
+    backdrop-filter: blur(3px);
+}
+
+.overlay.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.overlay p {
+    text-align: center;
+    font-size: 18px;
+    font-family: Sixtyfour, monospace;
+    font-weight: 400;
+    transition: letter-spacing 0.5s;
+    text-shadow: 0.06rem 0 0.06rem #ea36af, -0.125rem 0 0.06rem #75fa69;
+}
+
+.overlay p:hover {
+    letter-spacing: 4px;
+}
+
+/* ─── rain (shared) ─────────────────────────────────── */
+
+.rain-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+/* m4rkyyy simple raindrops */
+
+.raindrop {
+    position: absolute;
+    width: 2px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 50% 50% 0 0;
+    animation: fall linear infinite;
+    opacity: 0.7;
+}
+
+.splash {
+    position: absolute;
+    width: 5px;
+    height: 2px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    animation: splash-animation 0.3s ease-out;
+    opacity: 0;
+}
+
+/* wvwv999 detailed rain */
+
+.rain {
+    overflow: hidden;
+    position: fixed;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 0;
+    top: 0;
+    pointer-events: none;
+}
+
+.rain.back-row {
+    display: none;
+    z-index: -1;
+    opacity: 0.5;
+}
+
+.drop {
+    position: absolute;
+    width: 15px;
+    height: 150px;
+    pointer-events: none;
+    animation: drop 0.5s linear infinite;
+}
+
+.stem {
+    width: 1px;
+    height: 100%;
+    margin-left: 7px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25));
+    animation: stem 0.8s linear infinite;
+}
+
+.splat {
+    width: 15px;
+    height: 10px;
+    border-top: 2px dotted rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    opacity: 1;
+    transform: scale(0);
+    animation: splat 0.5s linear infinite;
+}
+
+/* ─── ───────── ABOVE THE FOLD (m4rkyyy) ──────────────── */
+
+#hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('../stuff/YmFja2.jpg') no-repeat center center;
+    background-size: cover;
+    animation: textflicker 0.01s infinite alternate;
+    text-shadow: 0.06rem 0 0.06rem #ea36af, -0.125rem 0 0.06rem #75fa69;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.center-box {
+    text-align: center;
+    animation: floaty2 4s ease-in-out infinite;
+    position: relative;
+    z-index: 2;
+}
+
+.center-box h1 {
+    font-size: 60px;
+    margin: 0;
+    font-family: Sixtyfour, monospace;
+    color: #ccc;
+    animation: floaty 3s ease-in-out infinite;
+    transition: color 0.2s ease;
+}
+
+.center-box .desc {
+    margin: 1rem;
+    font-size: 18px;
+    font-family: Sixtyfour, monospace;
+    color: #ccc;
+    opacity: 0.8;
+    animation: floaty 3.3s ease-in-out infinite;
+}
+
+.socialfos {
+    margin-top: 0.5rem;
+}
+
+.socialfos a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #bdbdbd;
+    font-size: 18px;
+    font-family: Sixtyfour, monospace;
+    transition: color 0.3s ease, font-size 0.3s ease;
+}
+
+.socialfos a:hover {
+    color: #f07eff;
+    text-decoration: none;
+}
+
+/* scroll hint arrow */
+
+.scroll-hint {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    animation: bounce 2s ease-in-out infinite;
+    opacity: 0.6;
+    font-family: Sixtyfour, monospace;
+    font-size: 12px;
+    color: #ccc;
+    text-align: center;
+    text-shadow: none;
+}
+
+.scroll-hint::after {
+    content: '▼';
+    display: block;
+    font-size: 18px;
+    margin-top: 4px;
+}
+
+/* ─── ──────── BELOW THE FOLD (wvwv999) ──────────────── */
+
+nav {
+    top: 0;
+    width: 100%;
+    text-align: center;
+    padding: 12px 0;
+    background: #0a0a0a;
+    border-bottom: 1px solid #1a1a1a;
+    position: relative;
+    z-index: 10;
+}
+
+nav p {
+    margin: 0;
+    font-size: 14px;
+    color: #777;
+}
+
+header {
+    text-align: center;
+    padding: 70px 20px 50px;
+}
+
+header h1 {
+    font-size: 42px;
+    margin-bottom: 5px;
+    font-family: "Nunito", sans-serif;
+    text-shadow: none;
+    animation: none;
+}
+
+header p {
+    margin: 4px 0;
+    color: #aaa;
+    text-shadow: none;
+}
+
+section {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 60px 25px;
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+h2 {
+    font-family: "Nunito", sans-serif;
+    font-size: 26px;
+    margin-bottom: 18px;
+    color: #f07eff;
+    text-shadow: none;
+    border-left: 3px solid #a100b0;
+    padding-left: 12px;
+}
+
+h3 {
+    font-family: "Nunito", sans-serif;
+    text-shadow: none;
+}
+
+a {
+    color: #c084fc;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #f07eff;
+}
+
+.faggot {
+    background: #111;
+    padding: 25px;
+    border: 1px solid #1e1e1e;
+    border-radius: 4px;
+}
+
+.faggot p {
+    margin: 0 0 10px;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.gallery img {
+    width: 100%;
+    border: 1px solid #222;
+    border-radius: 2px;
+    display: block;
+    transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.gallery img:hover {
+    transform: scale(1.03);
+    border-color: #a100b0;
+}
+
+ul {
+    padding-left: 18px;
+    margin: 0 0 10px;
+}
+
+ul li {
+    margin-bottom: 6px;
+}
+
+footer {
+    text-align: center;
+    padding: 40px 30px;
+    color: #555;
+    font-size: 14px;
+    border-top: 1px solid #1a1a1a;
+}
+
+/* ─── keyframes ─────────────────────────────────────── */
+
+@keyframes textflicker {
+    from { text-shadow: 1px 0 0 #ea36af, -2px 0 0 #75fa69; }
+    to   { text-shadow: 2px 0.5px 2px #ea36af, -1px -0.5px 2px #75fa69; }
+}
+
+@keyframes floaty {
+    0%   { transform: translateY(0px); }
+    50%  { transform: translateY(-6px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes floaty2 {
+    0%   { transform: translateY(0px); }
+    50%  { transform: translateY(-5px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes fall {
+    0%   { transform: translateY(-100vh); opacity: 0.7; }
+    100% { transform: translateY(100vh);  opacity: 0; }
+}
+
+@keyframes splash-animation {
+    0%   { transform: scale(0.1); opacity: 0.9; }
+    100% { transform: scale(1.5); opacity: 0; }
+}
+
+@keyframes drop {
+    0%   { transform: translateY(0vh); }
+    75%  { transform: translateY(90vh); }
+    100% { transform: translateY(90vh); }
+}
+
+@keyframes stem {
+    0%   { opacity: 1; }
+    65%  { opacity: 1; }
+    75%  { opacity: 0; }
+    100% { opacity: 0; }
+}
+
+@keyframes splat {
+    0%   { opacity: 1; transform: scale(0); }
+    80%  { opacity: 1; transform: scale(0); }
+    90%  { opacity: 0.5; transform: scale(1); }
+    100% { opacity: 0; transform: scale(1.5); }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50%       { transform: translateX(-50%) translateY(8px); }
+}
+
+@keyframes popup {
+    from { opacity: 0; transform: scale(0.9); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+/* ─── responsive ────────────────────────────────────── */
+
+@media (max-width: 600px) {
+    .center-box h1 { font-size: 38px; }
+    header h1      { font-size: 30px; }
+    section        { padding: 40px 16px; }
+}
